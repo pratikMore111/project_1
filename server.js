@@ -22,6 +22,20 @@ app.use(function(req, res, next) {
     next();
 });
 
+app.get('/', (request, response) => {
+    response.send('welcome to my application')
+})
+
+app.get('/product', (request, response) => {
+    const connection = connect()
+    const statement = `select * from Product`
+    connection.query(statement, (error, products) => {
+        connection.end()
+        response.send(products)
+    })
+})
+
+
 app.listen(4000, () => {
     console.log(`Server started on port 4000`);
 });
